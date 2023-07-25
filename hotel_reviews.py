@@ -32,6 +32,8 @@ def hotel_reviews():
     # Sort hotel reviews by number of mentions in descending order, if same number of mentions, sort by hotel id
     sorted_hotel_reviews = sorted(hotel_reviews.items(), key=lambda x: (-x[1], x[0]))
 
+    print()
+
     return [hotel[0] for hotel in sorted_hotel_reviews]
 
 print(hotel_reviews())
