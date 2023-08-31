@@ -16,11 +16,14 @@ def solution(S):
     for letter in letters:
         if letter.isupper() and letter.lower() in letters:
             if max_capital is None or letter > max_capital:
+                #can pop out the letter from the list
                 max_capital = letter
     
     if max_capital is None:
         return "NO"
     else:
         return max_capital
+    
+    #TODO: SORT AND GET MAX, FIND UPPERCASE, THEN REPEAT IF NOT FOUND
 
     
