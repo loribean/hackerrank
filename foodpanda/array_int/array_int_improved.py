@@ -29,4 +29,19 @@ def get_max_char(S):
     else:
         return max_capital
     #Total Time Complexity: O(N)
+
+
+    #Approach
+    #1. Get all unique letters in the string using a set
+    #2. Loop through the unique letters and check if the letter is uppercase
+    #  and if the lowercase version of the letter is in the set
+    #3 By using a set instead of a list, we can improve the time complexity of the function
+    # from O(N^2) to O(N)
+    #The function also handles edge cases where there are no letters in the string
+
+    #Non-functional
+    #1. variable names are descriptive - letters and max_capital
+    # 2. Set lookup is O(1) time
+    # 3. Handles unexpected input gracefully & returns No
+    # Can be improved by handling None & integers as well
     

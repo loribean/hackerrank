@@ -29,7 +29,18 @@ class TestGetMaxChar(unittest.TestCase):
 
     def test_case_nine(self):
         self.assertEqual(array_int_improved.get_max_char("XYZxyz"), "Z")
+    
+    # def test_case_none(self):
+    #     self.assertEqual(array_int_improved.get_max_char(None), "NO")
 
+    # def test_case_int(self):
+    #     self.assertEqual(array_int_improved.get_max_char(123), "NO")
+
+    def test_case_string_int(self):
+        self.assertEqual(array_int_improved.get_max_char("123"), "NO")
+
+    def test_case_empty_string(self):
+        self.assertEqual(array_int_improved.get_max_char(""), "NO")
 
 if __name__ == '__main__':
     unittest.main()
