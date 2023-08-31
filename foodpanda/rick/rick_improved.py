@@ -3,6 +3,8 @@ def solution(riddle):
     # String concatenation using += inside a loop can be inefficient
     # as strings are immutable in Python. It's better to use a list to accumulate characters 
     # and then join them into a string at the end.
+    #strings are immutable objects, which means that every time a string is concatenated with another string, a new string object is created in memory
+    # concat more than 2 strings with + is an O(n^2) operation (compared to O(n) for join) and thus becomes inefficient.
     string = []
     alphabet = set("abcdefghijklmnopqrstuvwxyz")
     previous = ""

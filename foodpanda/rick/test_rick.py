@@ -32,7 +32,7 @@ class TestSolution(unittest.TestCase):
         for i in range(len(result) - 1):
             self.assertNotEqual(result[i], result[i+1])
 
-    def test_case_five(self):
+    def test_case_random(self):
         # Test with random input
         testcase = generate_random_string(100)
         result = rick_improved.solution(testcase)
