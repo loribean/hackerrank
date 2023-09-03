@@ -51,5 +51,6 @@ class Solution:
         #return the longest substring length
         return longest
 
+#sliding window approach
 #call function
 print(Solution().lengthOfLongestSubstring("dvdf"))
