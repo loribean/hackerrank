@@ -27,6 +27,8 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        n = len(nums)
+        k = k % n # handle the case where k is greater than n
         nums[:] = nums[-k:] + nums[:-k]
 
 
