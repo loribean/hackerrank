@@ -36,39 +36,41 @@ class Solution:
         
         #use dfs to solve the sudoku
         #use backtracking to solve the sudoku
-        rows,cols,boxes,visited =  defaultdict(set), defaultdict(set), defaultdict(set), deque()
+        rows,cols,boxes,to_visit =  defaultdict(set), defaultdict(set), defaultdict(set), deque()
+
+        # we need loop through the whole board to get the initial state
         for i in range(9):
             for j in range(9):
-                if board[i][j] != '.':
+                if board[i][j] != '.': #if not empty, add to rows, cols, boxes
                     rows[i].add(board[i][j])
                     cols[j].add(board[i][j])
                     boxes[(i//3,j//3)].add(board[i][j])
                 else:
-                    visited.append((i,j))
+                    to_visit.append((i,j)) # if empty, add to to_visit
 
         def dfs():
-            if not visited:
+            if not to_visit: #if to_visit is empty, we have solved the sudoku!!
                 return True
-            i,j = visited[0]
-            box = (i//3,j//3)
+            i,j = to_visit[0] #get the first empty cell
+            box = (i//3,j//3) #get the box number
 
-            for num in {'1','2','3','4','5','6','7','8','9'}:
-                if num not in rows[i] and num not in cols[j] and num not in boxes[box]:
+            for num in {'1','2','3','4','5','6','7','8','9'}: #try each number
+                if num not in rows[i] and num not in cols[j] and num not in boxes[box]: #if the number is not in the row, col, box, we can add it to the board
                     rows[i].add(num)
                     cols[j].add(num)
                     boxes[box].add(num)
                     board[i][j] = num
-                    visited.popleft()
-                    if dfs():
+                    to_visit.popleft() #remove the cell from to_visit since we have TRIED it
+                    if dfs(): #if dfs returns True, we have solved the sudoku
                         return True
-                    else:
+                    else: #if dfs returns False, we need to backtrack and try another number
                         rows[i].remove(num)
                         cols[j].remove(num)
                         boxes[box].remove(num)
                         board[i][j] = '.'
-                        visited.appendleft((i,j))
+                        to_visit.appendleft((i,j))
 
-            return False
+            return False #if we have tried all numbers and none of them works, we return False
         
         dfs()
 
