@@ -1,68 +1,72 @@
 function solveSudoku(sudoku) {
-    let rows = {};
-    let cols = {};
-    let boxes = {};
-    let toVisit = [];
-
+    const rows = {};
+    const cols = {};
+    const boxes = {};
+    const toVisit = [];
+  
     for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            let cell = sudoku[i][j];
-            if (cell !== '.') {
-                let box = Math.floor(i / 3) + '-' + Math.floor(j / 3);
-                rows[i] = rows[i] || new Set();
-                cols[j] = cols[j] || new Set();
-                boxes[box] = boxes[box] || new Set();
-
-                rows[i].add(cell);
-                cols[j].add(cell);
-                boxes[box].add(cell);
-            } else {
-                toVisit.push([i, j]);
-            }
+      for (let j = 0; j < 9; j++) {
+        const cell = sudoku[i][j];
+        if (cell !== ".") {
+          const box = Math.floor(i / 3) + "-" + Math.floor(j / 3);
+          rows[i] = rows[i]  || new Set();
+          cols[j] = cols[j] || new Set();
+          boxes[box] = boxes[box] ||  new Set();
+  
+          rows[i].add(cell);
+          cols[j].add(cell);
+          boxes[box].add(cell);
+        } else {
+          toVisit.push([i, j]);
         }
+      }
     }
-
+  
     function dfs() {
-        if (toVisit.length === 0) {
-            return true;
+      if (toVisit.length === 0) {
+        return true;
+      }
+  
+      const [i, j] = toVisit.pop() ?? [0, 0];
+      const box = Math.floor(i / 3) + "-" + Math.floor(j / 3);
+  
+      for (let num = 1; num <= 9; num++) {
+        const numStr = num.toString();
+        if (
+          rows[i].has(numStr) ||
+          cols[j].has(numStr) ||
+          boxes[box].has(numStr)
+        ) {
+          continue;
         }
-
-        let [i, j] = toVisit.pop();
-        let box = Math.floor(i / 3) + '-' + Math.floor(j / 3);
-
-        for (let num = 1; num <= 9; num++) {
-            num = num.toString();
-            if (rows[i].has(num) || cols[j].has(num) || boxes[box].has(num)) {
-                continue;
-            }
-
-            rows[i].add(num);
-            cols[j].add(num);
-            boxes[box].add(num);
-            sudoku[i][j] = num;
-
-            if (dfs()) {
-                return true;
-            } else {
-                rows[i].delete(num);
-                cols[j].delete(num);
-                boxes[box].delete(num);
-                sudoku[i][j] = '.';
-            }
+  
+        rows[i].add(numStr);
+        cols[j].add(numStr);
+        boxes[box].add(numStr);
+        sudoku[i][j] = numStr;
+  
+        if (dfs()) {
+          return true;
+        } else {
+          rows[i].delete(numStr);
+          cols[j].delete(numStr);
+          boxes[box].delete(numStr);
+          sudoku[i][j] = ".";
         }
-
-        toVisit.push([i, j]);
-        return false;
+      }
+  
+      toVisit.push([i, j]);
+      return false;
     }
-
+  
     if (dfs()) {
-        return sudoku;
+      return sudoku;
     } else {
-        return "No solution exists!";
+      return undefined;
     }
-}
+  }
 
-const solvedSudoku = solveSudoku([
+  const solvedSudoku = solveSudoku([
     ["5", "3", ".", ".", "7", ".", ".", ".", "."],
     ["6", ".", ".", "1", "9", "5", ".", ".", "."],
     [".", "9", "8", ".", ".", ".", ".", "6", "."],
